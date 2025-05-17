@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="6dp"
+    android:background="@android:color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Tên khách hàng -->
+        <TextView
+            android:id="@+id/tvCustomerName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Tên khách hàng"
+            android:textColor="#212121"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvStatus"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+
+        <!-- Trạng thái -->
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hoàn tất"
+            android:textColor="@android:color/white"
+            android:background="@drawable/status_done"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="4dp"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Giá tiền -->
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Tổng tiền: 150.000đ"
+            android:textColor="#555555"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@id/tvCustomerName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="6dp"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+
+        <!-- "Chi tiết" dạng liên kết -->
+        <TextView
+            android:id="@+id/btnDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chi tiết"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/tvPrice"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

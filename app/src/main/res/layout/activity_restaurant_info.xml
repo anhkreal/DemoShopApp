@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.RestaurantInfoActivity">
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Thông tin nhà hàng"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <ImageView
+        android:id="@+id/restaurantImageView"
+        android:layout_width="202dp"
+        android:layout_height="134dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="Restaurant Image"
+        android:background="@drawable/imageview_border"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView" />
+
+    <ImageButton
+        android:id="@+id/imagePickerButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Pick Image"
+        android:src="@android:drawable/ic_menu_camera"
+        app:layout_constraintBottom_toBottomOf="@id/restaurantImageView"
+        app:layout_constraintEnd_toEndOf="@id/restaurantImageView" />
+
+    <EditText
+        android:id="@+id/nameEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Tên nhà hàng"
+        app:layout_constraintTop_toBottomOf="@id/restaurantImageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp" />
+
+    <EditText
+        android:id="@+id/descriptionEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Mô tả nhà hàng"
+        app:layout_constraintTop_toBottomOf="@id/nameEditText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp" />
+
+    <EditText
+        android:id="@+id/streetNameEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Tên đường"
+        app:layout_constraintTop_toBottomOf="@id/descriptionEditText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp" />
+
+    <Spinner
+        android:id="@+id/districtSpinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/streetNameEditText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp" />
+
+    <Button
+        android:id="@+id/actionButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Thêm mới"
+        app:layout_constraintTop_toBottomOf="@id/districtSpinner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp" />
+
+    <include
+        layout="@layout/dieuhuong_chu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

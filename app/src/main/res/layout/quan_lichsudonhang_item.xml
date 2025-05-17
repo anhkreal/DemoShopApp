@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    android:background="@android:color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <!-- Hình ảnh quán -->
+        <ImageView
+            android:id="@+id/imgQuan"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginEnd="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_food_placeholder"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Thông tin quán -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgQuan"
+            app:layout_constraintEnd_toStartOf="@id/btnXemThongTin"
+            android:layout_marginEnd="8dp">
+
+            <TextView
+                android:id="@+id/tvTenQuan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tên Quán"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/tvMoTaQuan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mô tả quán"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"
+                android:layout_marginTop="4dp" />
+
+            <TextView
+                android:id="@+id/tvThoiGianDatHang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thời gian đặt hàng: 00:00"
+                android:textSize="14sp"
+                android:textColor="@android:color/holo_red_dark"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+        <!-- Xem thông tin -->
+        <TextView
+            android:id="@+id/btnXemThongTin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Xem thông tin"
+            android:textSize="12sp"
+            android:textColor="@android:color/holo_blue_light"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="8dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

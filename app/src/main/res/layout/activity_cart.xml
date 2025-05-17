@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_giohang"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:padding="12dp">
+
+    <!-- Phần 1: Đơn hàng đã đặt + nút Lịch sử đơn hàng + các RecyclerView -->
+    <LinearLayout
+        android:id="@+id/layout_phan_1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:paddingBottom="8dp"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/layout_phann_2">
+
+        <!-- Tiêu đề + nút lịch sử -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/tv_donhang_dadathang"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Đơn hàng đã đặt"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_lichsu_donhang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lịch sử đơn hàng"
+                android:backgroundTint="@color/purple_500"
+                android:textColor="@android:color/white"
+                android:minWidth="100dp"
+                android:padding="8dp" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_donhang_dadat"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/tv_donhang_chuadathang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đơn hàng chưa đặt"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_donhang_chuadat"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <!-- Phần 2: Tổng cộng + nút Mua hàng -->
+    <LinearLayout
+        android:id="@+id/layout_phann_2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp"
+        android:paddingTop="8dp"
+        app:layout_constraintBottom_toTopOf="@id/layout_phann_3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/tv_tongcong"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Tổng cộng: 0 VND"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_muahang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mua hàng"
+            android:backgroundTint="@color/purple_500"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <!-- Phần 3: Thanh điều hướng -->
+    <include
+        android:id="@+id/layout_phann_3"
+        layout="@layout/dieuhuong_khach"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

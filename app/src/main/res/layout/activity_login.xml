@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="@android:color/white"
+    android:fitsSystemWindows="true"
+    tools:context=".view.LoginActivity">
+
+    <!-- Tiêu đề -->
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ĐĂNG NHẬP"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="56dp" />
+
+    <!-- Chào mừng -->
+    <TextView
+        android:id="@+id/textViewWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chào mừng bạn đến với M10 Eats"
+        android:textSize="16sp"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp" />
+
+    <!-- Trường nhập Email -->
+    <LinearLayout
+        android:id="@+id/emailLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/edit_text_background"
+        app:layout_constraintTop_toBottomOf="@id/textViewWelcome"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:padding="8dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_email"
+            android:contentDescription="Biểu tượng email" />
+
+        <EditText
+            android:id="@+id/editTextEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Địa chỉ Email"
+            android:inputType="textEmailAddress"
+            android:importantForAutofill="no"
+            android:contentDescription="Trường nhập địa chỉ email"
+            android:background="@android:color/transparent"
+            android:paddingStart="8dp" />
+    </LinearLayout>
+
+    <!-- Trường nhập Mật khẩu -->
+    <LinearLayout
+        android:id="@+id/passwordLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/edit_text_background"
+        app:layout_constraintTop_toBottomOf="@id/emailLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:padding="8dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_lock"
+            android:contentDescription="Biểu tượng khóa" />
+
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Mật khẩu"
+            android:inputType="textPassword"
+            android:importantForAutofill="no"
+            android:contentDescription="Trường nhập mật khẩu"
+            android:background="@android:color/transparent"
+            android:paddingStart="8dp" />
+    </LinearLayout>
+
+    <!-- Nút Đăng nhập -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonLogin"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:text="Đăng nhập"
+        android:textSize="16sp"
+        android:textAllCaps="false"
+        android:background="@drawable/button_background"
+        app:layout_constraintTop_toBottomOf="@id/passwordLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="Nút đăng nhập" />
+
+    <!-- Liên kết Đăng ký -->
+    <TextView
+        android:id="@+id/textViewSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nếu chưa có tài khoản? Đăng kí tại đây"
+        android:textSize="14sp"
+        android:textColor="@android:color/holo_blue_dark"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toBottomOf="@id/buttonLogin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:contentDescription="Liên kết đăng ký tài khoản" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

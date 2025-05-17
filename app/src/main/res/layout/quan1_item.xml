@@ -1,0 +1,74 @@
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cardview="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    cardview:cardCornerRadius="8dp"
+    cardview:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <!-- Hình ảnh cửa hàng -->
+        <ImageView
+            android:id="@+id/item_image"
+            android:layout_width="330dp"
+            android:layout_height="165dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="@string/item_image_desc"
+            android:scaleType="centerCrop"
+            android:background="@drawable/rounded_image_background" />
+
+        <!-- Tên cửa hàng -->
+        <TextView
+            android:id="@+id/shop_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"
+            android:textColor="@android:color/black"
+            android:text="Tên cửa hàng" />
+
+        <!-- Địa chỉ cửa hàng -->
+        <TextView
+            android:id="@+id/shop_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray"
+            android:text="Tên đường, Tên quận" />
+
+        <!-- Thời gian giao hàng, phí vận chuyển và nút Chi tiết -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="8dp">
+
+            <TextView
+                android:id="@+id/delivery_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:text="Thời gian giao hàng: 30 phút, phí 20.000đ" />
+
+            <Button
+                android:id="@+id/btn_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chi tiết" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

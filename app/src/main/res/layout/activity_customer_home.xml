@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Thanh điều hướng cố định dưới cùng -->
+    <include
+        android:id="@+id/navigationLayout"
+        layout="@layout/dieuhuong_khach"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Cuộn nội dung chính -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/mainScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/navigationLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Thông báo vị trí -->
+            <TextView
+                android:id="@+id/location_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chưa nhận được thông tin vị trí của bạn, hãy cập nhật tại 'Thông tin' -> 'Vị trí'"
+                android:textColor="@android:color/holo_red_dark"
+                android:visibility="gone"
+                android:padding="8dp" />
+
+            <!-- Tiêu đề nhà hàng -->
+            <TextView
+                android:id="@+id/restaurant_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nhà hàng liên quan:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp" />
+
+            <!-- RecyclerView nhà hàng với chiều cao cố định để scroll riêng -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/restaurant_list"
+                android:layout_width="match_parent"
+                android:layout_height="310dp"
+                android:layout_marginTop="8dp"
+                android:scrollbars="vertical" />
+
+            <!-- Tiêu đề món ăn -->
+            <TextView
+                android:id="@+id/dish_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Món ăn liên quan:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp" />
+
+            <!-- RecyclerView món ăn với chiều cao cố định để scroll riêng -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/dish_list"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:layout_marginTop="8dp"
+                android:scrollbars="vertical" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
