@@ -31,10 +31,16 @@ public class QuanXacNhanAdapter extends RecyclerView.Adapter<QuanXacNhanAdapter.
         }
     }
 
-    private final List<QuanXacNhanItem> items;
+    public interface OnOrderChangedListener {
+        void onOrderChanged();
+    }
 
-    public QuanXacNhanAdapter(List<QuanXacNhanItem> items) {
+    private final List<QuanXacNhanItem> items;
+    private final OnOrderChangedListener orderChangedListener;
+
+    public QuanXacNhanAdapter(List<QuanXacNhanItem> items, OnOrderChangedListener listener) {
         this.items = items;
+        this.orderChangedListener = listener;
     }
 
     @NonNull
@@ -48,27 +54,30 @@ public class QuanXacNhanAdapter extends RecyclerView.Adapter<QuanXacNhanAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         QuanXacNhanItem item = items.get(position);
         holder.tvTenNhaHang.setText(item.res != null ? item.res.getName() : "Nhà hàng");
-        // Sửa: lấy tổng tiền từ invoice
         int tongTien = (item.inv != null) ? item.inv.getTotalPayment() : 0;
         holder.tvTongTien.setText("Tổng: " + tongTien + " VND");
         holder.recyclerMonAn.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
         holder.recyclerMonAn.setAdapter(new MonAnDonHangAdapter(item.carts, item.dishes));
 
-        // Sự kiện nút xác nhận thanh toán
         holder.btnXacNhanDonHang.setOnClickListener(v -> {
             if (item.inv == null) return;
             String status = item.inv.getStatus();
             if ("Chờ xác nhận".equals(status)) {
-                // Đổi trạng thái thành "Hoàn tất"
                 item.inv.setStatus("Chờ nhận hàng");
                 new Thread(() -> {
                     AppDatabase db = AppDatabase.getInstance(holder.itemView.getContext());
                     db.invoiceDAO().updateInvoice(item.inv);
-                    holder.itemView.post(() -> android.widget.Toast.makeText(
+                    holder.itemView.post(() -> {
+                        android.widget.Toast.makeText(
                             holder.itemView.getContext(),
                             "Đã xác nhận đơn hàng!",
                             android.widget.Toast.LENGTH_SHORT
-                    ).show());
+                        ).show();
+                        // Gọi callback reload lại trang
+                        if (orderChangedListener != null) {
+                            orderChangedListener.onOrderChanged();
+                        }
+                    });
                 }).start();
             }
         });

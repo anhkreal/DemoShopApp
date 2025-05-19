@@ -200,7 +200,7 @@ public class OrderManagementActivity extends AppCompatActivity {
 
             runOnUiThread(() -> {
                 rvChoXacNhan.setLayoutManager(new LinearLayoutManager(this));
-                rvChoXacNhan.setAdapter(new QuanXacNhanAdapter(xacNhanItems));
+                rvChoXacNhan.setAdapter(new QuanXacNhanAdapter(xacNhanItems, () -> loadData()));
 
                 rvChoVanChuyen.setLayoutManager(new LinearLayoutManager(this));
                 rvChoVanChuyen.setAdapter(new QuanGioHang2Adapter(vanChuyenItems, null));
