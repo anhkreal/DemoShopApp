@@ -174,7 +174,10 @@ public class RestaurantInfoActivity extends AppCompatActivity {
 
             database.restaurantDAO().updateRestaurant(updatedRestaurant);
 
-            runOnUiThread(() -> Toast.makeText(this, "Cập nhật thành công", Toast.LENGTH_SHORT).show());
+            runOnUiThread(() -> {
+                Toast.makeText(this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                reloadActivity(); // reload lại trang sau khi cập nhật
+            });
         }).start();
     }
 
@@ -200,7 +203,10 @@ public class RestaurantInfoActivity extends AppCompatActivity {
             );
             database.user_restaurantDAO().insert(newUserRestaurant);
 
-            runOnUiThread(() -> Toast.makeText(this, "Thêm mới thành công", Toast.LENGTH_SHORT).show());
+            runOnUiThread(() -> {
+                Toast.makeText(this, "Thêm mới thành công", Toast.LENGTH_SHORT).show();
+                reloadActivity(); // reload lại trang sau khi thêm mới
+            });
         }).start();
     }
 
@@ -226,3 +232,4 @@ public class RestaurantInfoActivity extends AppCompatActivity {
         startActivity(intent);
     }
 }
+
