@@ -26,6 +26,7 @@
 
             <!-- Đơn hàng chờ xác nhận -->
             <TextView
+                android:id="@+id/tv_donhang_cho_xacnhan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Đơn hàng chờ xác nhận"
@@ -41,6 +42,7 @@
 
             <!-- Đơn hàng chờ vận chuyển -->
             <TextView
+                android:id="@+id/tv_donhang_cho_vanchuyen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Đơn hàng chờ vận chuyển"

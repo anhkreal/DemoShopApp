@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,6 +37,8 @@ public class OrderManagementActivity extends AppCompatActivity {
     private RecyclerView rvChoXacNhan, rvChoVanChuyen, rvHoanTat;
     private Button btnLichSu;
     private ImageView itemHome, itemMngt, itemInfo;
+    // Thêm biến TextView cho tiêu đề
+    private TextView tvChoXacNhan, tvChoVanChuyen, tvHoanTat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,11 @@ public class OrderManagementActivity extends AppCompatActivity {
         rvChoVanChuyen = findViewById(R.id.rv_donhang_cho_vanchuyen);
         rvHoanTat = findViewById(R.id.rv_donhang_hoantat);
         btnLichSu = findViewById(R.id.btn_lichsu_donhang);
+
+        // Lấy tham chiếu các TextView tiêu đề
+        tvChoXacNhan = findViewById(R.id.tv_donhang_cho_xacnhan);
+        tvChoVanChuyen = findViewById(R.id.tv_donhang_cho_vanchuyen);
+        tvHoanTat = findViewById(R.id.tv_donhang_hoantat);
 
         // Thanh điều hướng
         itemHome = findViewById(R.id.itemHome);
@@ -199,6 +207,11 @@ public class OrderManagementActivity extends AppCompatActivity {
             }
 
             runOnUiThread(() -> {
+                // Cập nhật số lượng vào tiêu đề
+                tvChoXacNhan.setText(xacNhanItems.size() + " Đơn hàng chờ xác nhận");
+                tvChoVanChuyen.setText(vanChuyenItems.size() + " Đơn hàng chờ vận chuyển");
+                tvHoanTat.setText(hoanTatItems.size() + " Đơn hàng hoàn tất");
+
                 rvChoXacNhan.setLayoutManager(new LinearLayoutManager(this));
                 rvChoXacNhan.setAdapter(new QuanXacNhanAdapter(xacNhanItems, () -> loadData()));
 
@@ -211,4 +224,3 @@ public class OrderManagementActivity extends AppCompatActivity {
         }).start();
     }
 }
-
