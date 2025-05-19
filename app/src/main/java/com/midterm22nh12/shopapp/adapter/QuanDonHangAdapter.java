@@ -32,10 +32,16 @@ public class QuanDonHangAdapter extends RecyclerView.Adapter<QuanDonHangAdapter.
         }
     }
 
-    private final List<QuanDonHangItem> items;
+    public interface OnOrderChangedListener {
+        void onOrderChanged();
+    }
 
-    public QuanDonHangAdapter(List<QuanDonHangItem> items) {
+    private final List<QuanDonHangItem> items;
+    private final OnOrderChangedListener orderChangedListener;
+
+    public QuanDonHangAdapter(List<QuanDonHangItem> items, OnOrderChangedListener listener) {
         this.items = items;
+        this.orderChangedListener = listener;
     }
 
     @NonNull
@@ -49,13 +55,11 @@ public class QuanDonHangAdapter extends RecyclerView.Adapter<QuanDonHangAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         QuanDonHangItem item = items.get(position);
         holder.tvTenNhaHang.setText(item.res != null ? item.res.getName() : "Nhà hàng");
-        // Sửa: lấy tổng tiền từ invoice
         int tongTien = (item.inv != null) ? item.inv.getTotalPayment() : 0;
         holder.tvTongTien.setText("Tổng: " + tongTien + " VND");
         holder.recyclerMonAn.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
         holder.recyclerMonAn.setAdapter(new MonAnDonHangAdapter(item.carts, item.dishes));
 
-        // Sự kiện nút xác nhận thanh toán
         holder.btnXacNhanThanhToan.setOnClickListener(v -> {
             if (item.inv == null) return;
             String status = item.inv.getStatus();
@@ -66,16 +70,20 @@ public class QuanDonHangAdapter extends RecyclerView.Adapter<QuanDonHangAdapter.
                     android.widget.Toast.LENGTH_SHORT
                 ).show();
             } else if ("Chờ nhận hàng".equals(status)) {
-                // Đổi trạng thái thành "Hoàn tất"
                 item.inv.setStatus("Hoàn tất");
                 new Thread(() -> {
                     AppDatabase db = AppDatabase.getInstance(holder.itemView.getContext());
                     db.invoiceDAO().updateInvoice(item.inv);
-                    holder.itemView.post(() -> android.widget.Toast.makeText(
-                        holder.itemView.getContext(),
-                        "Đã xác nhận hoàn tất đơn hàng!",
-                        android.widget.Toast.LENGTH_SHORT
-                    ).show());
+                    holder.itemView.post(() -> {
+                        android.widget.Toast.makeText(
+                            holder.itemView.getContext(),
+                            "Đã xác nhận hoàn tất đơn hàng!",
+                            android.widget.Toast.LENGTH_SHORT
+                        ).show();
+                        if (orderChangedListener != null) {
+                            orderChangedListener.onOrderChanged();
+                        }
+                    });
                 }).start();
             }
         });

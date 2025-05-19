@@ -177,7 +177,6 @@ public class CartActivity extends AppCompatActivity {
                     }
                 }
 
-                // Tạo restaurant mới chỉ để hiển thị tên, trạng thái và ngày đặt hàng
                 restaurant res = new restaurant();
                 if (resOrigin != null) {
                     res.setName(
@@ -201,11 +200,17 @@ public class CartActivity extends AppCompatActivity {
             }
 
             runOnUiThread(() -> {
-                adapterDonHangDaDat = new QuanDonHangAdapter(donHangItems);
+                adapterDonHangDaDat = new QuanDonHangAdapter(donHangItems, this::reloadAfterOrderChanged);
                 rvDonHangDaDat.setLayoutManager(new LinearLayoutManager(this));
                 rvDonHangDaDat.setAdapter(adapterDonHangDaDat);
             });
         }).start();
+    }
+
+    // Thêm hàm reload lại dữ liệu khi đơn hàng thay đổi
+    private void reloadAfterOrderChanged() {
+        loadDonHangDaDat();
+        loadDonHangChuaDat();
     }
 
     private void loadDonHangChuaDat() {
