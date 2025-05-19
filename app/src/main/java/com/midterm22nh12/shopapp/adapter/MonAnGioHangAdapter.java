@@ -29,6 +29,7 @@ public class MonAnGioHangAdapter extends RecyclerView.Adapter<MonAnGioHangAdapte
 
     public interface OnCartCheckedChangeListener {
         void onCartChecked(String cartId, int price, boolean checked);
+        void onCartDeleted(String cartId, int price, boolean wasChecked); // thêm callback xóa
     }
 
     private final List<dish_cart> cartList;
@@ -145,6 +146,8 @@ public class MonAnGioHangAdapter extends RecyclerView.Adapter<MonAnGioHangAdapte
                         AppDatabase db = AppDatabase.getInstance(context);
                         db.dish_cartDAO().deleteById(cart.getId());
                         db.dish_invoiceDAO().deleteByDishCartId(cart.getId());
+                        boolean wasChecked = cart.isSelected();
+                        int price = d.getPrice() * cart.getQuantity();
                         // Cập nhật UI
                         new Handler(Looper.getMainLooper()).post(() -> {
                             int idx = holder.getAdapterPosition();
@@ -153,6 +156,10 @@ public class MonAnGioHangAdapter extends RecyclerView.Adapter<MonAnGioHangAdapte
                                 dishList.remove(idx);
                                 notifyItemRemoved(idx);
                                 Toast.makeText(context, "Đã xóa món khỏi giỏ hàng", Toast.LENGTH_SHORT).show();
+                                // Gọi callback cập nhật tổng tiền
+                                if (listener != null) {
+                                    listener.onCartDeleted(cart.getId(), price, wasChecked);
+                                }
                             }
                         });
                     }).start();

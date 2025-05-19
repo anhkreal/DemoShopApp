@@ -30,6 +30,7 @@ public class QuanGioHangAdapter extends RecyclerView.Adapter<QuanGioHangAdapter.
 
     public interface OnCartCheckedChangeListener {
         void onCartChecked(String restaurantId, String cartId, int price, boolean checked);
+        void onCartDeleted(String restaurantId, String cartId, int price, boolean wasChecked); // thêm callback xóa
     }
 
     private final List<QuanGioHangItem> items;
@@ -63,9 +64,18 @@ public class QuanGioHangAdapter extends RecyclerView.Adapter<QuanGioHangAdapter.
                 item.carts,
                 item.dishes,
                 item.res != null ? item.res.getId() : "",
-                (cartId, price, checked) -> {
-                    if (listener != null) {
-                        listener.onCartChecked(item.res != null ? item.res.getId() : "", cartId, price, checked);
+                new MonAnGioHangAdapter.OnCartCheckedChangeListener() {
+                    @Override
+                    public void onCartChecked(String cartId, int price, boolean checked) {
+                        if (listener != null) {
+                            listener.onCartChecked(item.res != null ? item.res.getId() : "", cartId, price, checked);
+                        }
+                    }
+                    @Override
+                    public void onCartDeleted(String cartId, int price, boolean wasChecked) {
+                        if (listener != null) {
+                            listener.onCartDeleted(item.res != null ? item.res.getId() : "", cartId, price, wasChecked);
+                        }
                     }
                 }
         );

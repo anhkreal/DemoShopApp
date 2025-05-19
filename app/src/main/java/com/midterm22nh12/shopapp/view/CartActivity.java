@@ -248,49 +248,77 @@ public class CartActivity extends AppCompatActivity {
             }
 
             runOnUiThread(() -> {
-                adapterDonHangChuaDat = new QuanGioHangAdapter(gioHangItems, (restaurantId, cartId, price, checked) -> {
-                    // Xử lý phí vận chuyển và kiểm tra vị trí
-                    int deliveryFee = 0;
-                    String resDistrict = null;
-                    if (restaurantMap.get(restaurantId) != null) {
-                        resDistrict = restaurantMap.get(restaurantId).getDistrictName();
-                    }
-
-                    if (userDistrict == null || userDistrict.isEmpty()) {
-                        // Không cho nhấn checkbox, toast cảnh báo
-                        Toast.makeText(this, "Vui lòng cập nhật vị trí để đặt hàng!", Toast.LENGTH_SHORT).show();
-                        adapterDonHangChuaDat.uncheckCart(cartId);
-                        return;
-                    } else {
-                        if (userDistrict.equalsIgnoreCase(resDistrict)) {
-                            deliveryFee = 15000;
-                        } else {
-                            deliveryFee = 25000;
+                adapterDonHangChuaDat = new QuanGioHangAdapter(gioHangItems, new QuanGioHangAdapter.OnCartCheckedChangeListener() {
+                    @Override
+                    public void onCartChecked(String restaurantId, String cartId, int price, boolean checked) {
+                        int deliveryFee = 0;
+                        String resDistrict = null;
+                        if (restaurantMap.get(restaurantId) != null) {
+                            resDistrict = restaurantMap.get(restaurantId).getDistrictName();
                         }
-                    }
 
-                    if (checked) {
-                        if (selectedRestaurantId == null || selectedRestaurantId.equals(restaurantId)) {
-                            selectedRestaurantId = restaurantId;
-                            selectedCartIds.add(cartId);
-                            tongTien += price;
-                        } else {
-                            Toast.makeText(this, "Chỉ được chọn món trong cùng một quán!", Toast.LENGTH_SHORT).show();
+                        if (userDistrict == null || userDistrict.isEmpty()) {
+                            Toast.makeText(CartActivity.this, "Vui lòng cập nhật vị trí để đặt hàng!", Toast.LENGTH_SHORT).show();
                             adapterDonHangChuaDat.uncheckCart(cartId);
                             return;
+                        } else {
+                            if (userDistrict.equalsIgnoreCase(resDistrict)) {
+                                deliveryFee = 15000;
+                            } else {
+                                deliveryFee = 25000;
+                            }
                         }
-                    } else {
-                        selectedCartIds.remove(cartId);
-                        tongTien -= price;
-                        if (selectedCartIds.isEmpty()) selectedRestaurantId = null;
+
+                        if (checked) {
+                            if (selectedRestaurantId == null || selectedRestaurantId.equals(restaurantId)) {
+                                selectedRestaurantId = restaurantId;
+                                selectedCartIds.add(cartId);
+                                tongTien += price;
+                            } else {
+                                Toast.makeText(CartActivity.this, "Chỉ được chọn món trong cùng một quán!", Toast.LENGTH_SHORT).show();
+                                adapterDonHangChuaDat.uncheckCart(cartId);
+                                return;
+                            }
+                        } else {
+                            selectedCartIds.remove(cartId);
+                            tongTien -= price;
+                            if (selectedCartIds.isEmpty()) selectedRestaurantId = null;
+                        }
+
+                        tongCong = tongTien;
+                        if (!selectedCartIds.isEmpty()) {
+                            tongCong += deliveryFee;
+                        }
+                        tvTongCong.setText("Tổng cộng: " + tongCong + " VND");
                     }
 
-                    // Tính tổng tiền + phí vận chuyển nếu có chọn món
-                    tongCong = tongTien;
-                    if (!selectedCartIds.isEmpty()) {
-                        tongCong += deliveryFee;
+                    @Override
+                    public void onCartDeleted(String restaurantId, String cartId, int price, boolean wasChecked) {
+                        // Nếu món bị xóa đang được chọn thì cập nhật lại tổng tiền và danh sách chọn
+                        if (wasChecked) {
+                            selectedCartIds.remove(cartId);
+                            tongTien -= price;
+                            if (selectedCartIds.isEmpty()) selectedRestaurantId = null;
+                        }
+                        // Tính lại tổng cộng (bao gồm phí vận chuyển nếu còn món được chọn)
+                        int deliveryFee = 0;
+                        String resDistrict = null;
+                        if (restaurantMap.get(restaurantId) != null) {
+                            resDistrict = restaurantMap.get(restaurantId).getDistrictName();
+                        }
+                        if (userDistrict != null && !userDistrict.isEmpty() && !selectedCartIds.isEmpty()) {
+                            if (userDistrict.equalsIgnoreCase(resDistrict)) {
+                                deliveryFee = 15000;
+                            } else {
+                                deliveryFee = 25000;
+                            }
+                        }
+                        tongCong = tongTien;
+                        if (!selectedCartIds.isEmpty()) {
+                            tongCong += deliveryFee;
+                        }
+                        tvTongCong.setText("Tổng cộng: " + tongCong + " VND");
                     }
-                    tvTongCong.setText("Tổng cộng: " + tongCong + " VND");
                 });
 
                 rvDonHangChuaDat.setLayoutManager(new LinearLayoutManager(this));
